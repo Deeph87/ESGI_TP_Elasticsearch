@@ -105,8 +105,8 @@ class TP
         return $result;
     }
 
-    public function exercice7() {
-        // Nombre de hit augmenté car of match sur elastic ou stack
+    public function exercice7()
+    {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
         $content = '{
@@ -122,9 +122,44 @@ class TP
 
         $result = $this->curl($url, $method, $content);
 
-        var_dump($result);
+        return $result;
+    }
+
+    public function exercice8()
+    {
+        $url = 'elasticsearch:9200/blog/_search';
+        $method = 'GET';
+        $content = '{
+          "query":{
+            "bool":{
+              "must": [
+                {
+                  "match": {
+                    "content": "search"
+                  }
+                },
+                {
+                  "match": {
+                    "content": "search analytics"
+                  }
+                },
+                  {
+                  "match": {
+                    "content": {
+                      "query": "search analytics",
+                      "operator": "and"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }';
+
+        $result = $this->curl($url, $method, $content);
 
         return $result;
+
     }
 
     private function curl($url, $method, $content, $jsonOutput = true)

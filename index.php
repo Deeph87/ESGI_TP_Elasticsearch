@@ -14,3 +14,4 @@ $file = __DIR__ . '/blog.csv';
 //var_dump($tp->exercice5());
 //var_dump($tp->exercice6());
 //var_dump($tp->exercice7());
+//var_dump($tp->exercice8());
