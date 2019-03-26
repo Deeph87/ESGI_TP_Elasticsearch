@@ -7,4 +7,5 @@ $tp = new TP();
 
 
 $file = __DIR__ . '/blog.csv';
-$tp->exercice1($file);
+//$tp->exercice1($file);
+//$tp->exercice5();
