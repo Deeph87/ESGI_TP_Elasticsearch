@@ -34,9 +34,6 @@ class TP
             $finalString .= "\n";
         });
 
-//        var_dump($finalString);
-        var_dump("Number entries : " . count($array));
-
         $this->curl($finalString);
 
         //END BULK
@@ -54,8 +51,6 @@ class TP
             CURLOPT_RETURNTRANSFER => true
         ]);
         $output = curl_exec($ch);
-
-        var_dump($output);
 
         curl_close($ch);
 
