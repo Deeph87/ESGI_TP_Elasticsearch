@@ -1,23 +1,26 @@
 <?php
 
-$header = ['title', 'seo_title', 'url', 'author', 'date', 'category', 'locales', 'content'];
+
+require_once(__DIR__ . "/TP.php");
+
+$tp = new TP();
+
 
 $file = __DIR__ . '/blog.csv';
-$csv = file_get_contents($file);
+$tp->exercice1($file);
 
-$array = array_map(function ($line) use ($header) {
-    $explodedLine = str_getcsv($line, ';');
-
-    if (count($explodedLine) != count($header)) {
-        return null;
-    }
-
-    return array_combine($header, $explodedLine);
-}, explode("\n", $csv));
-
-
-$array = array_filter($array);
-
-var_dump("Number entries : " . count($array));
-
-$json = json_encode($array);
+//$ch = curl_init();
+//curl_setopt_array($ch, [
+//    CURLOPT_URL => "kibana:5601",
+//    CURLOPT_POST => true,
+//    CURLOPT_POSTFIELDS => '',
+//    CURLOPT_RETURNTRANSFER => true
+//]);
+//
+//
+//$output = curl_exec($ch);
+//
+//curl_close($ch);
+//
+//
+//var_dump($output);
