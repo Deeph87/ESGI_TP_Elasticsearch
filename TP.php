@@ -34,22 +34,31 @@ class TP
             $finalString .= "\n";
         });
 
-        var_dump($finalString);
+//        var_dump($finalString);
         var_dump("Number entries : " . count($array));
+
+        $this->curl($finalString);
 
         //END BULK
 
-//        $ch = curl_init();
-//        curl_setopt_array($ch, [
-//            CURLOPT_URL => "kibana:5601/exo/_doc/_bulk",
-//            CURLOPT_POST => true,
-//            CURLOPT_POSTFIELDS => '',
-//            CURLOPT_RETURNTRANSFER => true
-//        ]);
-//        $output = curl_exec($ch);
-//
-//        curl_close($ch);
-
         return json_encode($array);
+    }
+
+    private function curl($finalString) {
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => "elasticsearch:9200/exo/_doc/_bulk",
+            CURLOPT_POST => true,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_POSTFIELDS => $finalString,
+            CURLOPT_RETURNTRANSFER => true
+        ]);
+        $output = curl_exec($ch);
+
+        var_dump($output);
+
+        curl_close($ch);
+
+        return $output;
     }
 }
