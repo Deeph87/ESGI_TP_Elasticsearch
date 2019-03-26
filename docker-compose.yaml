@@ -17,6 +17,7 @@ services:
             - 'ELASTICSEARCH_HOSTS=http://elasticsearch:9200'
     php:
         build: engine/php
+        working_dir: /app
         volumes:
             - './:/app'
         depends_on:
