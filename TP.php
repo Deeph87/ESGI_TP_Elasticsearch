@@ -53,6 +53,25 @@ class TP
         return $exo3;
     }
 
+    public function exercice4()
+    {
+        $url = 'elasticsearch:9200/blog/_search';
+        $method = 'GET';
+        $content = '{
+          "query": {
+            "match": {
+              "date": "May 2017"
+            }
+          }
+        }';
+
+        $result = $this->curl($url, $method, $content);
+
+        var_dump($result);
+
+        return $result;
+    }
+
     public function exercice5()
     {
         $url = 'elasticsearch:9200/blog/_search';
