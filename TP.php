@@ -47,7 +47,7 @@ class TP
     private function curl($finalString) {
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => "elasticsearch:9200/exo/_doc/_bulk",
+            CURLOPT_URL => "elasticsearch:9200/blog/_doc/_bulk",
             CURLOPT_POST => true,
             CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
             CURLOPT_POSTFIELDS => $finalString,
