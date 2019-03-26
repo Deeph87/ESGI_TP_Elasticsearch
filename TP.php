@@ -26,19 +26,11 @@ class TP
 
 
         //START BULK
-        $final = [];
-        array_walk($array, function ($line, $key) use (&$final) {
-            $final[] = [
-                'index' => ['index' => ['_id' => $key + 1]],
-                'content' => $line
-            ];
-        });
-
         $finalString = '';
-        array_walk($final, function ($line) use (&$finalString) {
-            $finalString .= json_encode($line['index']);
+        array_walk($array, function ($line, $key) use (&$finalString) {
+            $finalString .= json_encode(['index' => ['_id' => $key + 1]]);
             $finalString .= "\n";
-            $finalString .= json_encode($line['content']);
+            $finalString .= json_encode($line);
             $finalString .= "\n";
         });
 
