@@ -32,22 +32,24 @@ class TP
             $finalString .= "\n";
         });
 
-        $this->curl($finalString);
+        $this->curl("elasticsearch:9200/blog/_doc/_bulk", "POST", $finalString);
 
         //END BULK
 
         return json_encode($array);
     }
 
-    private function curl($finalString) {
+    private function curl($url, $method, $content)
+    {
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => "elasticsearch:9200/blog/_doc/_bulk",
-            CURLOPT_POST => true,
+            CURLOPT_URL => $url,
+            CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-            CURLOPT_POSTFIELDS => $finalString,
+            CURLOPT_POSTFIELDS => $content,
             CURLOPT_RETURNTRANSFER => true
         ]);
+
         $output = curl_exec($ch);
 
         curl_close($ch);
