@@ -91,6 +91,26 @@ class TP
         return $result;
     }
 
+    public function exercice6()
+    {
+        // Nombre de hit augmenté car of match sur elastic ou stack
+        $url = 'elasticsearch:9200/blog/_search';
+        $method = 'GET';
+        $content = '{
+          "query": {
+            "match": {
+              "title": "elastic stack"
+            }
+          }
+        }';
+
+        $result = $this->curl($url, $method, $content);
+
+        var_dump($result);
+
+        return $result;
+    }
+
     private function curl($url, $method, $content)
     {
         $ch = curl_init();
