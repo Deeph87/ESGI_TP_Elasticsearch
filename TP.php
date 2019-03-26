@@ -39,6 +39,25 @@ class TP
         return json_encode($array);
     }
 
+    public function exercice5()
+    {
+        $url = 'elasticsearch:9200/blog/_search';
+        $method = 'GET';
+        $content = '{
+          "query": {
+            "match": {
+              "title": "elastic"
+            }
+          }
+        }';
+
+        $result = $this->curl($url, $method, $content);
+
+        var_dump($result);
+
+        return $result;
+    }
+
     private function curl($url, $method, $content)
     {
         $ch = curl_init();
