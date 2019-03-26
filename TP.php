@@ -47,6 +47,17 @@ class TP
 
         //END BULK
 
+//        $ch = curl_init();
+//        curl_setopt_array($ch, [
+//            CURLOPT_URL => "kibana:5601/exo/_doc/_bulk",
+//            CURLOPT_POST => true,
+//            CURLOPT_POSTFIELDS => '',
+//            CURLOPT_RETURNTRANSFER => true
+//        ]);
+//        $output = curl_exec($ch);
+//
+//        curl_close($ch);
+
         return json_encode($array);
     }
 }
