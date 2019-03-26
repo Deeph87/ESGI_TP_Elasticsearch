@@ -39,6 +39,20 @@ class TP
         return json_encode($array);
     }
 
+    public function exercice2(){
+        $finalString= "";
+        $exo2 = $this->curl("elasticsearch:9200/blog/_search", "GET", $finalString);
+        var_dump($exo2);
+        return $exo2;
+    }
+
+    public function exercice3(){
+        $finalString= "{\"from\" : 0, \"size\" : 100}";
+        $exo3 = $this->curl("elasticsearch:9200/blog/_search", "GET", $finalString);
+        var_dump($exo3);
+        return $exo3;
+    }
+
     public function exercice5()
     {
         $url = 'elasticsearch:9200/blog/_search';
