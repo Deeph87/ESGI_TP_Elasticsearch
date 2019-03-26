@@ -187,6 +187,29 @@ class TP
 
     }
 
+    public function exercice11()
+    {
+        $url = 'elasticsearch:9200/blog/_search';
+        $method = 'GET';
+        $content = '{
+          "query":{
+            "bool":{
+              "must": [
+                {
+                  "match": {
+                    "content": "performance optimizations improvements"
+                  }
+                }
+              ]
+            }
+          }
+        }';
+
+        $result = $this->curl($url, $method, $content);
+
+        return $result;
+    }
+
     private function curl($url, $method, $content, $jsonOutput = true)
     {
         $ch = curl_init();
