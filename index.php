@@ -1,27 +1,23 @@
 <?php
 
-$header = [
-    'title',
-    'seo_title',
-    'url',
-    'author',
-    'date',
-    'category',
-    'locales',
-    'content'
-];
+$header = ['title', 'seo_title', 'url', 'author', 'date', 'category', 'locales', 'content'];
 
-$file = './sample.csv';
-$csv= file_get_contents($file);
-$array = array_map(function($line) use ($header) {
+$file = __DIR__ . '/blog.csv';
+$csv = file_get_contents($file);
+
+$array = array_map(function ($line) use ($header) {
     $explodedLine = str_getcsv($line, ';');
-    $ret = [];
-    foreach ($explodedLine as $k => $item) {
-        $ret[$header[$k]] = $item;
+
+    if (count($explodedLine) != count($header)) {
+        return null;
     }
-    return $ret;
+
+    return array_combine($header, $explodedLine);
 }, explode("\n", $csv));
 
-var_dump(json_encode("Number entries : " . count($array)));
+
+$array = array_filter($array);
+
+var_dump("Number entries : " . count($array));
 
 $json = json_encode($array);
