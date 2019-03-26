@@ -39,17 +39,20 @@ class TP
         return json_encode($array);
     }
 
-    public function exercice2(){
-        $finalString= "";
-        $exo2 = $this->curl("elasticsearch:9200/blog/_search", "GET", $finalString);
-        var_dump($exo2);
+    public function exercice2()
+    {
+        $exo2 = $this->curl("elasticsearch:9200/blog/_search", "GET", "");
+
         return $exo2;
     }
 
-    public function exercice3(){
-        $finalString= "{\"from\" : 0, \"size\" : 100}";
-        $exo3 = $this->curl("elasticsearch:9200/blog/_search", "GET", $finalString);
-        var_dump($exo3);
+    public function exercice3()
+    {
+        $exo3 = $this->curl("elasticsearch:9200/blog/_search", "GET", json_encode([
+            'from' => 0,
+            "size" => 100
+        ]));
+
         return $exo3;
     }
 
@@ -57,17 +60,14 @@ class TP
     {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "query": {
-            "match": {
-              "date": "May 2017"
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
-
-        var_dump($result);
+        $result = $this->curl($url, $method, json_encode([
+            'query' => [
+                'match' => [
+                    'date' => 'May 2017'
+                ]
+            ]
+        ]));
 
         return $result;
     }
@@ -76,17 +76,14 @@ class TP
     {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "query": {
-            "match": {
-              "title": "elastic"
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
-
-        var_dump($result);
+        $result = $this->curl($url, $method, json_encode([
+            'query' => [
+                'match' => [
+                    'title' => 'elastic'
+                ]
+            ]
+        ]));
 
         return $result;
     }
@@ -96,22 +93,20 @@ class TP
         // Nombre de hit augmenté car of match sur elastic ou stack
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "query": {
-            "match": {
-              "title": "elastic stack"
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
-
-        var_dump($result);
+        $result = $this->curl($url, $method, json_encode([
+            'query' => [
+                'match' => [
+                    'title' => 'elastic stack'
+                ]
+            ]
+        ]));
 
         return $result;
     }
 
-    private function curl($url, $method, $content)
+
+    private function curl($url, $method, $content, $jsonOutput = true)
     {
         $ch = curl_init();
         curl_setopt_array($ch, [
@@ -126,6 +121,6 @@ class TP
 
         curl_close($ch);
 
-        return $output;
+        return $jsonOutput ? json_decode($output, true) : $output;
     }
 }
