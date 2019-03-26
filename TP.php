@@ -20,10 +20,8 @@ class TP
             return array_combine($header, $explodedLine);
         }, explode("\n", $csv));
 
-
         $array = array_filter($array);
         //END CSV TO JSON
-
 
         //START BULK
         $finalString = '';
