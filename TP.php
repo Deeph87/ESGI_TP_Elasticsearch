@@ -169,14 +169,32 @@ class TP
         $content = '{
           "size": 3,
           "query":{
-            "bool":{
-              "must": [
-                {
-                  "match_phrase": {
-                    "content": "search analytics"
-                  }
-                }
-              ]
+            "match_phrase": {
+              "content": {
+                "query": "search analytics"
+              }
+            }
+          }
+        }';
+
+        $result = $this->curl($url, $method, $content);
+
+        return $result;
+
+    }
+
+    public function exercice10()
+    {
+        $url = 'elasticsearch:9200/blog/_search';
+        $method = 'GET';
+        $content = '{
+          "size": 3,
+          "query":{
+            "match_phrase": {
+              "content": {
+                "query": "search analytics",
+                "slop": 1
+              }
             }
           }
         }';
