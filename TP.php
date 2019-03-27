@@ -109,18 +109,17 @@ class TP
     {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "query": {
-            "match": {
-              "title": {
-                "query": "elastic stack",
-                "operator": "and"
-              }
-            }
-         }
-        }';
 
-        $result = $this->curl($url, $method, $content);
+        $result = $this->curl($url, $method, json_encode([
+            'query' => [
+                'match' => [
+                    'title' => [
+                        'query' => 'elastic stack',
+                        'operator' => 'and'
+                    ]
+                ]
+            ]
+        ]));
 
         return $result;
     }
@@ -129,34 +128,34 @@ class TP
     {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "query":{
-            "bool":{
-              "must": [
-                {
-                  "match": {
-                    "content": "search"
-                  }
-                },
-                {
-                  "match": {
-                    "content": "search analytics"
-                  }
-                },
-                  {
-                  "match": {
-                    "content": {
-                      "query": "search analytics",
-                      "operator": "and"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
+        $result = $this->curl($url, $method, json_encode([
+            'query' => [
+                'bool' => [
+                    'must' => [
+                        [
+                            'match' => [
+                                'content' => 'search'
+                            ]
+                        ],
+                        [
+                            'match' => [
+                                'content' => 'search analytics'
+                            ]
+                        ],
+                        [
+                            'match' => [
+                                'content' => [
+                                    'query' => 'search analytics',
+                                    'operator' => 'and'
+                                ]
+                            ]
+                        ]
+
+                    ]
+                ]
+            ]
+        ]));
 
         return $result;
 
@@ -166,18 +165,17 @@ class TP
     {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "size": 3,
-          "query":{
-            "match_phrase": {
-              "content": {
-                "query": "search analytics"
-              }
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
+        $result = $this->curl($url, $method, json_encode([
+            'size' => 3,
+            'query' => [
+                'match_phrase' => [
+                    'content' => [
+                        'query' => 'search analytics'
+                    ]
+                ]
+            ]
+        ]));
 
         return $result;
 
@@ -187,19 +185,18 @@ class TP
     {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "size": 3,
-          "query":{
-            "match_phrase": {
-              "content": {
-                "query": "search analytics",
-                "slop": 1
-              }
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
+        $result = $this->curl($url, $method, json_encode([
+            'size' => 3,
+            'query' => [
+                'match_phrase' => [
+                    'content' => [
+                        'query' => 'search analytics',
+                        'slop' => 1
+                    ]
+                ]
+            ]
+        ]));
 
         return $result;
 
@@ -209,21 +206,20 @@ class TP
     {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "query":{
-            "bool":{
-              "must": [
-                {
-                  "match": {
-                    "content": "performance optimizations improvements"
-                  }
-                }
-              ]
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
+        $result = $this->curl($url, $method, json_encode([
+            'query' => [
+                'bool' => [
+                    'must' => [
+                        [
+                            'match' => [
+                                'content' => 'performance optimizations improvements'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]));
 
         return $result;
     }
@@ -231,20 +227,31 @@ class TP
     public function exercice12() {
         $url = 'elasticsearch:9200/blog/_search';
         $method = 'GET';
-        $content = '{
-          "query":{
-            "bool":{
-                "should": [
-                { "match": {"content": "performance"}},
-                { "match": {"content": "optimizations"}},
-                { "match": {"content": "improvements"}}
-              ],
-              "minimum_should_match": 2
-            }
-          }
-        }';
 
-        $result = $this->curl($url, $method, $content);
+        $result = $this->curl($url, $method, json_encode([
+            'query' => [
+                'bool' => [
+                    'should' => [
+                        [
+                            'match' => [
+                                'content' => "performance"
+                            ]
+                        ],
+                        [
+                            'match' => [
+                                'content' => "optimizations"
+                            ]
+                        ],
+                        [
+                            'match' => [
+                                'content' => "improvements"
+                            ]
+                        ]
+                    ],
+                    'minimum_should_match' => 2
+                ]
+            ]
+        ]));
 
         return $result;
     }
